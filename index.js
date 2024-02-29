@@ -1,18 +1,19 @@
 const express = require('express');
 const mysql = require('mysql2');
+require('dotenv').config();
 
 const app = express();
 const port = 3000;
 
 const connection = mysql.createConnection({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'Abhi3434@',
-    database: 'product_app'
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
 });
 
 
-app.get('/api/products', (req, res) => {
+app.get('/', (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
