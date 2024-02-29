@@ -1,0 +1,38 @@
+const express = require('express');
+const mysql = require('mysql2');
+
+const app = express();
+const port = 3000;
+
+const connection = mysql.createConnection({
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'Abhi3434@',
+    database: 'product_app'
+});
+
+
+app.get('/api/products', (req, res) => {
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const skip = req.query.skip ? parseInt(req.query.skip) : 0;
+
+    connection.query(`SELECT * FROM products LIMIT ${skip}, ${limit}`, (error, results) => {
+        if (error) {
+            console.error('Error fetching products:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            const response = {
+                products: results,
+                total: 100, 
+                skip: skip,
+                limit: limit
+            };
+            res.json(response);
+        }
+    });
+});
+
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
