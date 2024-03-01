@@ -6,6 +6,7 @@ const port = process.env.MYSQLPORT;
 
 console.log("Connecting to MySQL database...");
 const connection = mysql.createPool()({
+    connectionLimit: 10,
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
