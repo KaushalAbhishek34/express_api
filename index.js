@@ -2,14 +2,14 @@ const express = require('express');
 const mysql = require('mysql2');
 
 const app = express();
-const port = 28031 ;
+const port = process.env.MYSQLPORT ;
 
 console.log("Connecting to MySQL database...");
 const connection = mysql.createConnection({
-    host: 'roundhouse.proxy.rlwy.net', 
-    user: 'root', 
-    password: 'CFE5F3Dc6Gg45CFgCF5CgBEd-4FD23G5', 
-    database: 'railway'
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE
 });
 
 connection.connect((err) => {
