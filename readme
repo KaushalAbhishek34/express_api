@@ -2,3 +2,8 @@ MYSQL_HOST=viaduct.proxy.rlwy.net
 MYSQL_USER=root
 MYSQL_PASSWORD=Abhi3434@
 MYSQL_DATABASE=product_app
+
+mysql://root:CFE5F3Dc6Gg45CFgCF5CgBEd-4FD23G5@:/
+mysql://root:CFE5F3Dc6Gg45CFgCF5CgBEd-4FD23G5@roundhouse.proxy.rlwy.net:28031/railway
+mysql://root:CFE5F3Dc6Gg45CFgCF5CgBEd-4FD23G5@roundhouse.proxy.rlwy.net:28031/railway
+mysql://root:CFE5F3Dc6Gg45CFgCF5CgBEd-4FD23G5@:/
