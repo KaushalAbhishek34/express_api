@@ -5,21 +5,27 @@ const app = express();
 const port = process.env.MYSQLPORT;
 
 console.log("Connecting to MySQL database...");
-const connectToDatabase = async () => {
-    try {
-        const connection = await mysql.createConnection({
+const connectToDatabase = () => {
+    return new Promise((resolve, reject) => {
+        const connection = mysql.createConnection({
             host: process.env.MYSQLHOST,
             user: process.env.MYSQLUSER,
             password: process.env.MYSQLPASSWORD,
             database: process.env.MYSQLDATABASE
         });
-        console.log("Connected to MySQL database successfully!");
-        return connection;
-    } catch (err) {
-        console.error("Error connecting to MySQL database:", err.message);
-        throw err;
-    }
+        
+        connection.connect((err) => {
+            if (err) {
+                console.error("Error connecting to MySQL database:", err.message);
+                reject(err);
+            } else {
+                console.log("Connected to MySQL database successfully!");
+                resolve(connection);
+            }
+        });
+    });
 };
+
 
 app.get('/', async (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
