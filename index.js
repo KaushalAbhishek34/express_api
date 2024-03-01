@@ -26,25 +26,34 @@ const connectToDatabase = () => {
     });
 };
 
-
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
-    try {
-        const connection = await connectToDatabase();
-        const [results] = await connection.execute(`SELECT * FROM products LIMIT ?, ?`, [skip, limit]);
-        const response = {
-            products: results,
-            total: 100,
-            skip: skip,
-            limit: limit
-        };
-        res.json(response);
-    } catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
+    connectToDatabase()
+        .then((connection) => {
+            connection.execute(`SELECT * FROM products LIMIT ?, ?`, [skip, limit])
+                .then(([results]) => {
+                    const response = {
+                        products: results,
+                        total: 100,
+                        skip: skip,
+                        limit: limit
+                    };
+                    res.json(response);
+                })
+                .catch((error) => {
+                    console.error('Error fetching products:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                })
+                .finally(() => {
+                    connection.end(); // Close the connection
+                });
+        })
+        .catch((error) => {
+            console.error('Error connecting to MySQL database:', error.message);
+            res.status(500).json({ error: 'Internal server error' });
+        });
 });
 
 app.listen(port, '::', () => {
