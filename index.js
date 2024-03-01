@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.MYSQLPORT;
 
 console.log("Connecting to MySQL database...");
-const connection = mysql.createConnection({
+const connection = mysql.createPool()({
     host: process.env.MYSQLHOST,
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
