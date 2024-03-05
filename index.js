@@ -2,11 +2,12 @@ const express = require('express');
 const mysql = require('mysql2');
 
 const app = express();
-const port = process.env.MYSQLPORT ;
+const port = 3001 ;
 
 console.log("Connecting to MySQL database...");
 const connection = mysql.createConnection({
     host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
