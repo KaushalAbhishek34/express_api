@@ -55,6 +55,24 @@ app.get('/products', (req, res) => {
     });
 });
 
+app.get('/product/:id', (req, res) => {
+    const productId = req.params.id;
+
+    connection.query(`SELECT * FROM products WHERE id = ?`, [productId], (error, results) => {
+        if (error) {
+            console.error(`Error fetching product with ID ${productId}:`, error);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            if (results.length === 0) {
+                res.status(404).json({ error: 'Product not found' });
+            } else {
+                res.json(results[0]);
+            }
+        }
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
