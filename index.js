@@ -22,6 +22,19 @@ connection.connect((err) => {
     }
 });
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    );
+    next();
+});
+
 app.get('/', (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
