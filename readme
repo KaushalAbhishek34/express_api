@@ -1,9 +1,0 @@
-const port = process.env.MYSQLPORT ;
-
-console.log("Connecting to MySQL database...");
-const connection = mysql.createConnection({
-    host: process.env.MYSQLHOST,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE
-});
