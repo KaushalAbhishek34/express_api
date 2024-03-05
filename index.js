@@ -55,7 +55,7 @@ app.get('/products', (req, res) => {
     });
 });
 
-app.get('/product/:id', (req, res) => {
+app.get('/products/:id', (req, res) => {
     const productId = req.params.id;
 
     connection.query(`SELECT * FROM products WHERE id = ?`, [productId], (error, results) => {
