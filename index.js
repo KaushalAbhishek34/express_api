@@ -50,8 +50,8 @@ app.get('/products', (req, res) => {
             Image.productId = Product.id
          ) AS images
         FROM 
-        Product;
-    LIMIT ${skip}, ${limit}`, (error, results) => {
+        Product
+        LIMIT ${skip}, ${limit}`, (error, results) => {
         if (error) {
             console.error('Error fetching products:', error);
             res.status(500).json({ error: 'Internal server error' });
