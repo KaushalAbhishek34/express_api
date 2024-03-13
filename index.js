@@ -40,14 +40,17 @@ app.get('/products', (req, res) => {
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
     connection.query(`SELECT 
-    Product.*, 
-    GROUP_CONCAT(Image.url) AS images 
-    FROM 
-    Product 
-    LEFT JOIN 
-    Image ON Product.id = Image.productId 
-    GROUP BY
-    Product.id
+       Product.*,
+       (
+          SELECT 
+            GROUP_CONCAT(Image.url) 
+          FROM 
+            Image 
+          WHERE 
+            Image.productId = Product.id
+         ) AS images
+        FROM 
+        Product;
     LIMIT ${skip}, ${limit}`, (error, results) => {
         if (error) {
             console.error('Error fetching products:', error);
