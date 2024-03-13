@@ -80,7 +80,7 @@ app.get('/products/:id', (req, res) => {
          Image.productId = Product.id
       ) AS images
      FROM 
-     Product WHERE id = ?`, [productId], (error, results) => {
+     Product WHERE Product.id = ?`, [productId], (error, results) => {
         if (error) {
             console.error(`Error fetching product with ID ${productId}:`, error);
             res.status(500).json({ error: 'Internal server error' });
