@@ -44,7 +44,7 @@ app.get('/products', (req, res) => {
     Image.url AS images 
     FROM 
     Product 
-    LEFT JOIN 
+    INNER JOIN 
     Image ON Product.id = Image.productId 
     LIMIT ${skip}, ${limit}`, (error, results) => {
         if (error) {
