@@ -39,7 +39,7 @@ app.get('/products', (req, res) => {
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const skip = req.query.skip ? parseInt(req.query.skip) : 0;
 
-    connection.query(`SELECT * FROM products LIMIT ${skip}, ${limit}`, (error, results) => {
+    connection.query(`SELECT * FROM Products LIMIT ${skip}, ${limit}`, (error, results) => {
         if (error) {
             console.error('Error fetching products:', error);
             res.status(500).json({ error: 'Internal server error' });
