@@ -41,7 +41,7 @@ app.get('/products', (req, res) => {
 
     connection.query(`SELECT 
     Product.*, 
-    Image.url AS imageUrl 
+    Image.url AS images 
     FROM 
     Product 
     LEFT JOIN 
