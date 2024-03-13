@@ -41,11 +41,13 @@ app.get('/products', (req, res) => {
 
     connection.query(`SELECT 
     Product.*, 
-    Image.url AS images 
+    GROUP_CONCAT(Image.url) AS images 
     FROM 
     Product 
-    INNER JOIN 
+    LEFT JOIN 
     Image ON Product.id = Image.productId 
+    GROUP BY
+    Product.id
     LIMIT ${skip}, ${limit}`, (error, results) => {
         if (error) {
             console.error('Error fetching products:', error);
