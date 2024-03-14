@@ -70,9 +70,7 @@ app.get('/products', (req, res) => {
 app.get('/products/:id', (req, res) => {
     const productId = req.params.id;
 
-    connection.query(`Product.*,
-    (
-       SELECT Product WHERE Product.id = ?`, [productId], (error, results) => {
+    connection.query(` SELECT Product WHERE Product.id = ?`, [productId], (error, results) => {
         if (error) {
             console.error(`Error fetching product with ID ${productId}:`, error);
             res.status(500).json({ error: 'Internal server error' });
